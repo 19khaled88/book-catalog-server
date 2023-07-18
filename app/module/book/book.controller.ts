@@ -1,6 +1,7 @@
+import { Request, RequestHandler } from "express";
 import { BookService } from "./book.services";
 
-const bookCreateController = async (req, res) => {
+const bookCreateController:RequestHandler = async (req, res) => {
 	try {
 		const body = req.body;
 		const result = await BookService.bookCreateService(body);
@@ -17,7 +18,7 @@ const bookCreateController = async (req, res) => {
 	}
 };
 
-const allBooksController = async (req, res) => {
+const allBooksController:RequestHandler = async (req, res) => {
 	try {
 		const result = await BookService.allBooksService(req.query);
 		res.status(200).json({
@@ -32,7 +33,7 @@ const allBooksController = async (req, res) => {
 	}
 };
 
-const singleBookController = async (req, res) => {
+const singleBookController:RequestHandler = async (req, res) => {
 	try {
 		const result = await BookService.singleBookService(req.params.id);
 		res.status(200).json({
@@ -47,7 +48,7 @@ const singleBookController = async (req, res) => {
 	}
 };
 
-const updateBookController = async (req, res) => {
+const updateBookController:RequestHandler = async (req, res) => {
 	try {
 		const result = await BookService.updateBookService(req.params.id, req.body);
 		res.status(200).json({
@@ -63,7 +64,7 @@ const updateBookController = async (req, res) => {
 	}
 };
 
-const deleteBookController = async (req, res) => {
+const deleteBookController:RequestHandler = async (req, res) => {
 	try {
 		const result = await BookService.deleteBookService(req.params.id);
 		res.status(200).json({

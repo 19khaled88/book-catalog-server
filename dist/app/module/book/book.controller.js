@@ -30,6 +30,7 @@ const bookCreateController = (req, res) => __awaiter(void 0, void 0, void 0, fun
 });
 const allBooksController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const query = req === null || req === void 0 ? void 0 : req.query;
         const result = yield book_services_1.BookService.allBooksService(req.query);
         res.status(200).json({
             success: true,

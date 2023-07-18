@@ -1,7 +1,7 @@
 import { Request, RequestHandler } from "express";
 import { BookService } from "./book.services";
 
-
+import { IQuery } from "../../../interfaces/common";
 const bookCreateController:RequestHandler = async (req, res) => {
 	try {
 		const body = req.body;
@@ -23,7 +23,7 @@ const allBooksController:RequestHandler = async (req, res) => {
 	try {
         const query = req?.query
        
-		const result = await BookService.allBooksService(query);
+		const result = await BookService.allBooksService(req.query);
 		res.status(200).json({
 			success: true,
 			data: result,

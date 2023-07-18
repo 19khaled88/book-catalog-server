@@ -25,22 +25,22 @@ const bookCreateService = (payload) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 const allBooksService = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const { query } = payload;
     const fieldsToSearch = ['title', 'author', 'genre', 'publication_date'];
     let valueToMatch;
-    let valueToFilter;
+    // let valueToFilter
     if (payload.query && payload.query !== undefined) {
-        valueToMatch = payload.query;
+        valueToMatch = query;
     }
     else {
         valueToMatch = "";
     }
-    if (payload.filter && payload.filter !== undefined) {
-        console.log(typeof (payload.filter));
-        valueToFilter = payload.filter;
-    }
-    else {
-        valueToFilter = "";
-    }
+    // if(payload.filter && payload.filter !== undefined){
+    //     console.log(typeof (payload.filter))
+    //     valueToFilter = payload.filter
+    // }else{
+    //     valueToFilter = ""
+    // }
     const conditions = fieldsToSearch.map(field => ({ [field]: { $regex: valueToMatch } }));
     const books = yield book_model_1.Book.find({ $or: conditions });
     if (!books) {

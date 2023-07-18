@@ -1,6 +1,7 @@
 import { Request, RequestHandler } from "express";
 import { BookService } from "./book.services";
 
+
 const bookCreateController:RequestHandler = async (req, res) => {
 	try {
 		const body = req.body;
@@ -20,7 +21,9 @@ const bookCreateController:RequestHandler = async (req, res) => {
 
 const allBooksController:RequestHandler = async (req, res) => {
 	try {
-		const result = await BookService.allBooksService(req.query);
+        const query = req?.query
+       
+		const result = await BookService.allBooksService(query);
 		res.status(200).json({
 			success: true,
 			data: result,

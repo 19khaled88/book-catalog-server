@@ -1,4 +1,4 @@
-import { IUpdateResponse } from "../../../interfaces/common";
+import { IQuery, IUpdateResponse } from "../../../interfaces/common";
 import { IBook } from "./book.interface";
 import { Book } from "./book.model";
 
@@ -19,11 +19,11 @@ const bookCreateService = async (payload: IBook): Promise<IBook | null> => {
 	}
 };
 
-const allBooksService = async (payload:string): Promise<IBook[] | null> => {
-   
+const allBooksService = async (payload:IQuery): Promise<IBook[] | null> => {
+    
     const fieldsToSearch = [ 'title','author','genre','publication_date']
-    let valueToMatch
-    let valueToFilter
+    let valueToMatch:string | number
+    // let valueToFilter
     
     if(payload.query && payload.query !== undefined){
         valueToMatch = payload.query
@@ -31,13 +31,13 @@ const allBooksService = async (payload:string): Promise<IBook[] | null> => {
         valueToMatch = ""
     }
 
-    if(payload.filter && payload.filter !== undefined){
-        console.log(typeof (payload.filter))
-        valueToFilter = payload.filter
-    }else{
-        valueToFilter = ""
-    }
-    
+    // if(payload.filter && payload.filter !== undefined){
+    //     console.log(typeof (payload.filter))
+    //     valueToFilter = payload.filter
+    // }else{
+    //     valueToFilter = ""
+    // }
+    console.log(valueToMatch)
     const conditions = fieldsToSearch.map(field=>({ [field]: {$regex: valueToMatch}}))
 	
     const books = await Book.find({$or:conditions});

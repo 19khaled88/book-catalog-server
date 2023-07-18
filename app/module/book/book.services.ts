@@ -19,7 +19,7 @@ const bookCreateService = async (payload: IBook): Promise<IBook | null> => {
 	}
 };
 
-const allBooksService = async (payload): Promise<IBook[] | null> => {
+const allBooksService = async (payload:string): Promise<IBook[] | null> => {
    
     const fieldsToSearch = [ 'title','author','genre','publication_date']
     let valueToMatch
@@ -48,7 +48,7 @@ const allBooksService = async (payload): Promise<IBook[] | null> => {
 	return books;
 };
 
-const singleBookService=async(payload):Promise<IBook | null>=>{
+const singleBookService=async(payload:string):Promise<IBook | null>=>{
     const book = await Book.findById(payload) 
     if(!book){
         throw new Error("Id not found")

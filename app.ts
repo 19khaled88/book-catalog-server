@@ -1,24 +1,20 @@
+import cors from "cors";
+import express, { Application } from "express";
+import router from "./routes/index";
+const app: Application = express();
 
-import express, {Application} from 'express';
-import cors from 'cors';
-const app:Application = express()
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-app.use(express.json())
+//routes 
+app.use("/api/v1",router)
 
-app.use(express.urlencoded({extended:true}))
-
-app.use(cors()) 
-
-app.get("/",(req,res)=>{
-    res.status(200).json({
-        success:true,
-        message:"successful"
-    })
-})
-
-
-
-
+app.get("/", (req, res) => {
+	res.status(200).json({
+		success: true,
+		message: "successful",
+	});
+});
 
 export default app;
-

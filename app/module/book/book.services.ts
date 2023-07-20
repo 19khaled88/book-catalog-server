@@ -49,7 +49,7 @@ const allBooksService = async (payload: IQuery): Promise<IBook[] | null> => {
 
 	
 	// const books = await Book.find();
-	const books = await Book.find({ $or: conditions },{_id:0,reviews:0}).populate('reviews');
+	const books = await Book.find({ $or: conditions },["- _id", "- reviews"]);
 
 	if (!books) {
 		throw new Error("No book found");

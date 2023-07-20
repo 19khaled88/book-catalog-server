@@ -67,6 +67,10 @@ const updateBookController:RequestHandler = async (req, res) => {
 	}
 };
 
+const updateBookReviewController:RequestHandler=async(req,res)=>{
+	const result = await BookService.updateBookReviewService(req.params.id,req.body)
+}
+
 const deleteBookController:RequestHandler = async (req, res) => {
 	try {
 		const result = await BookService.deleteBookService(req.params.id);
@@ -89,5 +93,6 @@ export const BookController = {
 	allBooksController,
 	singleBookController,
 	updateBookController,
+	updateBookReviewController,
 	deleteBookController,
 };

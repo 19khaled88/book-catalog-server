@@ -49,7 +49,7 @@ const allBooksService = async (payload: IQuery): Promise<IBook[] | null> => {
 
 	
 	// const books = await Book.find();
-	const books = await Book.find({ $or: conditions });
+	const books = await Book.find({ $or: conditions }).populate('reviews');
 
 	if (!books) {
 		throw new Error("No book found");
@@ -58,7 +58,7 @@ const allBooksService = async (payload: IQuery): Promise<IBook[] | null> => {
 };
 
 const singleBookService = async (payload: string): Promise<IBook | null> => {
-	const book = await Book.findById(payload);
+	const book = await Book.findById(payload).populate('reviews');
 	if (!book) {
 		throw new Error("Id not found");
 	}
@@ -78,6 +78,12 @@ const updateBookService = async (
 	return isUpdate;
 };
 
+const updateBookReviewService=async(bookId:string,refId:string)=>{
+	
+	const result = await Book.findByIdAndUpdate(bookId,{reviews:refId})
+	console.log(result)
+}
+
 const deleteBookService = async (id: string) => {
 	const ifDeleted = await Book.findByIdAndDelete(id, { new: true });
 	if (!ifDeleted) {
@@ -91,5 +97,6 @@ export const BookService = {
 	allBooksService,
 	singleBookService,
 	updateBookService,
+	updateBookReviewService,
 	deleteBookService,
 };

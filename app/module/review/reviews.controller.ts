@@ -1,10 +1,20 @@
 import { Request, RequestHandler } from "express";
 import { IQuery } from "../../../interfaces/common";
 import { ReviewService } from "./reviews.service";
+import { Book } from "../book/book.model";
+import { BookService } from "../book/book.services";
 const reviewCreateController: RequestHandler = async (req, res) => {
 	try {
 		const body = req.body;
+		
 		const result = await ReviewService.reviewCreateService(body);
+		if(result && result._id){
+			const resultGenerated = BookService.updateBookReviewService(result?.book.toString(),result?._id.toString())
+			if(!resultGenerated){
+				throw new Error('review post not successful')
+			}
+		}
+		
 		res.status(200).json({
 			success: true,
 			message: "review posted successfully",
@@ -18,7 +28,7 @@ const reviewCreateController: RequestHandler = async (req, res) => {
 	}
 };
 
-const reviewShowController = async (req,res) => {
+const reviewShowController:RequestHandler = async (req,res) => {
 	try {
 		const result = await ReviewService.reviewShowService();
 		res.status(200).json({

@@ -8,7 +8,7 @@ const reviewSchema = new Schema<IReview, ReviewModel>(
 			required: true,
 		},
 		book: {
-			type: mongoose.Schema.Types.ObjectId,
+			type: Schema.Types.ObjectId,
 			ref: "Book",
 			required: true,
 		},

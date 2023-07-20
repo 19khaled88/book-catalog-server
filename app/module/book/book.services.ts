@@ -19,11 +19,12 @@ const bookCreateService = async (payload: IBook): Promise<IBook | null> => {
 	}
 };
 
-const allBooksService = async (payload:string): Promise<IBook[] | null> => {
+const allBooksService = async (payload:object): Promise<IBook[] | null> => {
    
-    const fieldsToSearch = [ 'title','author','genre','publication_date']
+	console.log(payload)
+    const fieldsToSearch:string[] = [ 'title','author','genre','publication_date']
     let valueToMatch
-    let valueToFilter
+    // let valueToFilter
     
     if(payload.query && payload.query !== undefined){
         valueToMatch = payload.query
@@ -31,12 +32,12 @@ const allBooksService = async (payload:string): Promise<IBook[] | null> => {
         valueToMatch = ""
     }
 
-    if(payload.filter && payload.filter !== undefined){
-        console.log(typeof (payload.filter))
-        valueToFilter = payload.filter
-    }else{
-        valueToFilter = ""
-    }
+    // if(payload.filter && payload.filter !== undefined){
+    //     console.log(typeof (payload.filter))
+    //     valueToFilter = payload.filter
+    // }else{
+    //     valueToFilter = ""
+    // }
     
     const conditions = fieldsToSearch.map(field=>({ [field]: {$regex: valueToMatch}}))
 	

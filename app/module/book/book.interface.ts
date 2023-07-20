@@ -5,6 +5,6 @@ export type IBook = {
     author:string;
     genre:string;
     publication_date:string;
-    reviews:string;
+    reviews?:string;
 }
 export type BookModel = Model<IBook>

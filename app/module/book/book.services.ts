@@ -3,6 +3,7 @@ import { IBook } from './book.interface'
 import { Book } from './book.model'
 
 const bookCreateService = async (payload: IBook): Promise<IBook | null> => {
+  
   const isExist = await Book.find(
     { title: payload.title },
     { author: payload.author },
@@ -12,6 +13,7 @@ const bookCreateService = async (payload: IBook): Promise<IBook | null> => {
     throw new Error('this book exist')
   } else {
     const newBook = await Book.create(payload)
+    
     if (!newBook) {
       throw new Error('Book create failed')
     }
@@ -48,7 +50,7 @@ const allBooksService = async (payload: IQuery): Promise<IBook[] | null> => {
   }))
 
   // const books = await Book.find();
-  const books = await Book.find({ $or: conditions }, {_id:0,reviews:0})
+  const books = await Book.find({ $or: conditions }, { reviews: 0 })
 
   if (!books) {
     throw new Error('No book found')
@@ -58,6 +60,7 @@ const allBooksService = async (payload: IQuery): Promise<IBook[] | null> => {
 
 const singleBookService = async (payload: string): Promise<IBook | null> => {
   const book = await Book.findById(payload).populate('reviews')
+  
   if (!book) {
     throw new Error('Id not found')
   }
@@ -68,7 +71,7 @@ const updateBookService = async (
   id: string,
   payload: IUpdateResponse<IBook>,
 ) => {
-  console.log(id, payload)
+  // console.log(id, payload)
   const isUpdate = await Book.findByIdAndUpdate(id, payload, { new: true })
 
   if (!isUpdate) {

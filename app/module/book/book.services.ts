@@ -81,8 +81,8 @@ const updateBookService = async (
 }
 
 const updateBookReviewService = async (bookId: string, refId: string) => {
-  const result = await Book.findByIdAndUpdate(bookId, { reviews: refId })
-  console.log(result)
+  const result = await Book.findByIdAndUpdate(bookId, {$push:{ reviews: refId }})
+  
 }
 
 const deleteBookService = async (id: string) => {

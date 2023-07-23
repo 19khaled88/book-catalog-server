@@ -12,6 +12,10 @@ const reviewSchema = new Schema<IReview, ReviewModel>(
 			ref: "Book",
 			required: true,
 		},
+		email:{
+			type:String,
+			required:true,
+		}
 	},
 	{
 		timestamps: true,
